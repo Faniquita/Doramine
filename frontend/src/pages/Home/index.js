@@ -1,10 +1,14 @@
 import {useEffect, useState} from 'react'
 import api from '../../services/api'
+import {Link, link} from 'react-router-dom'
+
+import './home.css'
 
 //URL da API: 
 
 function Home(){
     const [filmes, setFilmes] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(()=>{
         async function loadFilmes(){
@@ -17,21 +21,39 @@ function Home(){
                 }
             })
 
-            console.log(response.data.results)
-
+            //console.log(response.data.results.slice(0, 10))
+            setFilmes(response.data.results.slice(0, 10))
+            setLoading(false)
         }
 
         loadFilmes();
     }, [])
 
 
-
+    if(loading){
+        return(
+            <div className="loading">
+                <h2>
+                    Carregando Doramine...
+                </h2>
+            </div>
+        )
+    } 
+    
     return(
         <>
-            <div>
-                <h1>
-                    Bem vindo a Home
-                </h1>
+            <div className="container">
+               <div className="list">
+                    {filmes.map((filme)=>{
+                        return(
+                            <article key={filme.id}>
+                                <strong>{filme.title}</strong>
+                                <img src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title} />
+                                <Link to={`/filme/${filme.id}`}>Acessar</Link>
+                            </article>
+                        )
+                    })}
+               </div>
             </div>
         </>
     )
