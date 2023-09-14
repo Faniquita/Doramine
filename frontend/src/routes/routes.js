@@ -3,7 +3,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Home from '../pages/Home';
 import Doramine from '../pages/Doranime';
 import Header from '../components/Header';
-import Error from '../pages/Error'
+import Error from '../pages/Error';
 
 
 function RoutesApp(){
