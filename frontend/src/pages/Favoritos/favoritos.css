@@ -1,0 +1,38 @@
+.my-doranime{
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.my-doranime h1{
+    margin-bottom: 14px;
+}
+
+.my-doranime span{
+    font-size: 18px;
+}
+
+.my-doranime ul{
+    width: 720px;
+}
+
+.my-doranime ul li{
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.my-doranime div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-doranime div a{
+    text-decoration: none;
+    color: rgb(97, 166, 255);   
+    margin-right: 14px;
+}

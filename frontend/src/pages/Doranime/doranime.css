@@ -35,8 +35,22 @@
     padding: 12px;
     border-radius: 4px;
     cursor: pointer;
+    border: none;
+    transition: all 0.5s;
+    color: rgb(97, 166, 255);
+}
+
+.area-buttons button:hover{
+    background-color: rgb(170, 102, 248);
+    color: rgb(255, 255, 255);
 }
 
 .area-buttons a{
-    
+    text-decoration: none;
+    color: rgb(97, 166, 255);   
+    transition: all 0.5s;
+}
+
+.area-buttons a:hover{
+    color: rgb(255, 255, 255);
 }

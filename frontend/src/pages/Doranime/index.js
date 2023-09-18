@@ -1,11 +1,14 @@
 import {useEffect, useState} from 'react'
-import {useParams} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom'
 import '../Doranime/doranime.css'
 
 import api from '../../services/api'
+//import { JSON } from 'mysql/lib/protocol/constants/types'
 
 function Doramine(){
     const {id} = useParams()
+    const navegate = useNavigate()
+
     const [filme, setFilme] = useState({});
     const [loading, setLoading] = useState(true);
     
@@ -24,6 +27,8 @@ function Doramine(){
                 setLoading(false)
             }).catch(()=>{
                 console.log("Filme não encontrato")
+                navegate("/", {replace: true})
+                return
             })
         }
 
@@ -32,7 +37,24 @@ function Doramine(){
             console.log("Componente foi desmontado")
         }
 
-    }, [])
+    }, [navegate, id])
+
+
+    const saveFilme = () => {
+        const myList = localStorage.getItem("@doramineFlinx")
+        let doranimeSave = JSON.parse(myList) || [];
+        const hasDoranime  = doranimeSave.some((doranimeSalvo)=>doranimeSalvo.id === filme.id)
+        
+        if(hasDoranime){
+            alert("Dorama/Anime já se encontra no favorito")
+            return
+        }
+
+        doranimeSave.push(filme)
+        localStorage.setItem("@doramineFlinx", JSON.stringify(doranimeSave))
+        alert("Dorama/Anime salvo com sucesso a lista de favoritos!")
+        
+    }
 
     if(loading){
         return(            
@@ -52,9 +74,9 @@ function Doramine(){
                 <strong>Avaliação: {filme.vote_average}/10</strong>
 
                 <div className="area-buttons">
-                    <button>Salvar</button>
+                    <button onClick={saveFilme}>Salvar</button>
                     <button>
-                        <a href="#">Trailer</a>
+                        <a target="blank" rel="external" href={`https://youtube.com/results?search_query=${filme.title} Trailer`}>Trailer</a>
                     </button>
                 </div>
 
