@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react'
 import {useParams, useNavigate} from 'react-router-dom'
 import '../Doranime/doranime.css'
+import {toast} from 'react-toastify'
 
 import api from '../../services/api'
 //import { JSON } from 'mysql/lib/protocol/constants/types'
@@ -46,13 +47,13 @@ function Doramine(){
         const hasDoranime  = doranimeSave.some((doranimeSalvo)=>doranimeSalvo.id === filme.id)
         
         if(hasDoranime){
-            alert("Dorama/Anime já se encontra no favorito")
+            toast.warn("Dorama/Anime já se encontra nos favoritos")
             return
         }
 
         doranimeSave.push(filme)
         localStorage.setItem("@doramineFlinx", JSON.stringify(doranimeSave))
-        alert("Dorama/Anime salvo com sucesso a lista de favoritos!")
+        toast.success("Dorama/Anime salvo com sucesso!")
         
     }
 

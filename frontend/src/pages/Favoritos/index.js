@@ -2,6 +2,7 @@ import './favoritos.css'
 
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import {toast} from 'react-toastify'
 
 
 function Favoritos(){
@@ -12,9 +13,20 @@ function Favoritos(){
         setDoranime(JSON.parse(myList) || [])
     },[])
 
+    const favExcluir = (id) =>{
+        let filtro = doranimes.filter((doranime)=>{
+            return(doranime.id !== id)
+        })
+
+        setDoranime(filtro)
+        localStorage.setItem("@doramineFlinx", JSON.stringify(filtro))
+        toast.success("Dorama/Anime removido com sucesso!")
+    }
+
     return(
         <div className="my-doranime">
             <h1>Meus Favoritos</h1>
+            {doranimes.length === 0 && <span>Não possui nenhum Dorama ou Anime salvo como favoritos :( </span>}
             <ul>
                 {doranimes.map((doranime) =>{
                     return(
@@ -22,7 +34,7 @@ function Favoritos(){
                             <span>{doranime.title}</span>
                             <div>
                                 <Link to={`/doranime/${doranime.id}`}>Ver detalhes</Link>
-                                <button>Excluir</button>
+                                <button onClick={()=>favExcluir(doranime.id)}>Excluir</button>
                             </div>
                         </li>
                     )
